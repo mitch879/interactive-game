@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberbullying Superhero Academy: Digital Defenders</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #7209b7;
+            --success: #38b000;
+            --danger: #d90429;
+            --warning: #ffb703;
+            --info: #00b4d8;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 20px 0 15px;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin: 15px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            background: #ccc;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .badge.earned {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(67, 97, 238, 0.5);
+        }
+        
+        .badge.observer {
+            background: var(--info);
+        }
+        
+        .badge.analyst {
+            background: var(--warning);
+        }
+        
+        .badge.protector {
+            background: var(--primary);
+        }
+        
+        .badge.hero {
+            background: var(--success);
+        }
+        
+        .module {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .module.active {
+            display: block;
+        }
+        
+        .module-intro {
+            display: block;
+        }
+        
+        .question-container {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            padding: 12px 15px;
+            background-color: #f1f3f5;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .option.selected {
+            background-color: #d0ebff;
+            border-color: var(--primary);
+        }
+        
+        .option.correct {
+            background-color: rgba(56, 176, 0, 0.2);
+            border-color: var(--success);
+        }
+        
+        .option.incorrect {
+            background-color: rgba(217, 4, 41, 0.2);
+            border-color: var(--danger);
+        }
+        
+        .feedback {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .feedback.success {
+            background-color: rgba(56, 176, 0, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        .feedback.error {
+            background-color: rgba(217, 4, 41, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        
+        button.primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        button.primary:hover {
+            background-color: #3a56d4;
+        }
+        
+        button.secondary {
+            background-color: var(--gray);
+            color: white;
+        }
+        
+        button.secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .scenario {
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .completion-certificate {
+            border: 5px solid var(--primary);
+            padding: 30px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .completion-certificate::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(67, 97, 238, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+        
+        .certificate-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .medal {
+            font-size: 5rem;
+            margin: 20px 0;
+            color: var(--warning);
+        }
+        
+        #playerName {
+            border: 2px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .final-mission {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-height: 150px;
+            font-family: inherit;
+            font-size: 1rem;
+            margin-top: 10px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cyberbullying Superhero Academy: Digital Defenders</h1>
+            <p>Train to become a cyberbullying prevention superhero!</p>
+        </header>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="badge-container">
+            <div class="badge observer" id="observerBadge">Observer</div>
+            <div class="badge analyst" id="analystBadge">Analyst</div>
+            <div class="badge protector" id="protectorBadge">Protector</div>
+            <div class="badge hero" id="heroBadge">Hero</div>
+        </div>
+        
+        <!-- Introduction Module -->
+        <div class="module module-intro active" id="intro">
+            <h2>Welcome to the Academy!</h2>
+            <p>As a new recruit to the Digital Defenders, your mission is to protect the online community from cyberbullying. Through your training, you'll learn to identify different types of cyberbullying, understand its impact, and develop strategies to combat it.</p>
+            
+            <p>Before we begin, please enter your name:</p>
+            <input type="text" id="playerName" placeholder="Enter your name">
+            
+            <div class="buttons">
+                <button class="primary" id="startButton">Begin Training</button>
+            </div>
+        </div>
+        
+        <!-- Module 1: Identifying Cyberbullying -->
+        <div class="module" id="module1">
+            <h2>Training Module 1: Identifying Cyberbullying</h2>
+            
+            <h3>Mission Briefing</h3>
+            <p>Your first mission is to patrol the digital landscape and identify instances of cyberbullying. Remember, according to our intelligence (the eSafety Commissioner), cyberbullying occurs when someone uses social media or another internet-based method to make others feel sad or upset, and it happens repeatedly.</p>
+            
+            <h3>Field Assignment</h3>
+            <p><strong>Scenario Analysis</strong>: You'll be shown different online interactions. Your task is to determine which ones constitute cyberbullying.</p>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Example Scenario 1:</strong></p>
+                    <p>Jamie has been receiving threatening messages every day for two weeks from an anonymous account saying "You're worthless" and "Nobody wants you in this group."</p>
+                </div>
+                
+                <p><strong>Decision Point:</strong> Is this cyberbullying?</p>
+                
+                <div class="options" data-correct="yes">
+                    <div class="option" data-value="yes">Yes - this shows intentional, repeated behavior causing emotional harm</div>
+                    <div class="option" data-value="no">No - this could just be a misunderstanding</div>
+                </div>
+                
+                <div class="feedback" id="feedback1"></div>
+            </div>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Example Scenario 2:</strong></p>
+                    <p>Alex accidentally sent a message to the wrong person that could be interpreted as rude.</p>
+                </div>
+                
+                <p><strong>Decision Point:</strong> Is this cyberbullying?</p>
+                
+                <div class="options" data-correct="no">
+                    <div class="option" data-value="yes">Yes - the message was hurtful regardless of intent</div>
+                    <div class="option" data-value="no">No - this was not intentional or repeated</div>
+                </div>
+                
+                <div class="feedback" id="feedback2"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="secondary" id="prevBtn1" disabled>Previous</button>
+                <button class="primary" id="nextBtn1" disabled>Next Module</button>
+            </div>
+        </div>
+        
+        <!-- Module 2: Understanding the Roles -->
+        <div class="module" id="module2">
+            <h2>Training Module 2: Understanding the Roles</h2>
+            
+            <h3>Mission Briefing</h3>
+            <p>To effectively combat cyberbullying, you must understand the different roles people play in these situations.</p>
+            
+            <h3>Field Assignment</h3>
+            <p><strong>Role Identification Challenge</strong>: As you patrol various online spaces, identify which role each person is playing.</p>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Digital Surveillance Feed 1:</strong></p>
+                    <p>Sam sees threatening messages being sent to Taylor but doesn't say anything.</p>
+                </div>
+                
+                <p><strong>Role Classification:</strong> Sam is acting as a:</p>
+                
+                <div class="options" data-correct="bystander">
+                    <div class="option" data-value="victim">Victim</div>
+                    <div class="option" data-value="bully">Cyber bully</div>
+                    <div class="option" data-value="bystander">Bystander</div>
+                    <div class="option" data-value="upstander">Upstander</div>
+                </div>
+                
+                <div class="feedback" id="feedback3"></div>
+            </div>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Digital Surveillance Feed 2:</strong></p>
+                    <p>Jordan notices Alex being harassed online and reports it to a moderator.</p>
+                </div>
+                
+                <p><strong>Role Classification:</strong> Jordan is acting as a:</p>
+                
+                <div class="options" data-correct="upstander">
+                    <div class="option" data-value="victim">Victim</div>
+                    <div class="option" data-value="bully">Cyber bully</div>
+                    <div class="option" data-value="bystander">Bystander</div>
+                    <div class="option" data-value="upstander">Upstander</div>
+                </div>
+                
+                <div class="feedback" id="feedback4"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="secondary" id="prevBtn2">Previous</button>
+                <button class="primary" id="nextBtn2" disabled>Next Module</button>
+            </div>
+        </div>
+        
+        <!-- Module 3: Types of Cyberbullying -->
+        <div class="module" id="module3">
+            <h2>Training Module 3: Types of Cyberbullying</h2>
+            
+            <h3>Mission Briefing</h3>
+            <p>Your training now advances to recognizing various forms of cyberbullying. Our intelligence reports indicate several distinct categories.</p>
+            
+            <h3>Field Assignment</h3>
+            <p><strong>Classification Exercise</strong>: Match the cyberbullying incident to its type.</p>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Incident 1:</strong></p>
+                    <p>A group has created a private chat specifically to exclude one classmate and talk about them behind their back.</p>
+                </div>
+                
+                <p><strong>Classification:</strong> This is an example of:</p>
+                
+                <div class="options" data-correct="social">
+                    <div class="option" data-value="physical">Physical bullying</div>
+                    <div class="option" data-value="verbal">Verbal bullying</div>
+                    <div class="option" data-value="social">Social bullying</div>
+                    <div class="option" data-value="cyber">Cyber bullying only</div>
+                </div>
+                
+                <div class="feedback" id="feedback5"></div>
+            </div>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Incident 2:</strong></p>
+                    <p>Someone is repeatedly sending threatening messages to a person based on their sexual orientation.</p>
+                </div>
+                
+                <p><strong>Classification:</strong> This is an example of:</p>
+                
+                <div class="options" data-correct="homophobic">
+                    <div class="option" data-value="verbal">Verbal bullying</div>
+                    <div class="option" data-value="racial">Racial bullying</div>
+                    <div class="option" data-value="sexual">Sexual bullying</div>
+                    <div class="option" data-value="homophobic">Homophobic bullying</div>
+                </div>
+                
+                <div class="feedback" id="feedback6"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="secondary" id="prevBtn3">Previous</button>
+                <button class="primary" id="nextBtn3" disabled>Next Module</button>
+            </div>
+        </div>
+        
+        <!-- Module 4: Cyberbullying Statistics Analysis -->
+        <div class="module" id="module4">
+            <h2>Training Module 4: Cyberbullying Statistics Analysis</h2>
+            
+            <h3>Mission Briefing</h3>
+            <p>Understanding the scope of cyberbullying will help you grasp the importance of your mission.</p>
+            
+            <h3>Field Assignment</h3>
+            <p><strong>Data Analysis Challenge</strong>: Study the intelligence reports and complete the missing information.</p>
+            
+            <div class="question-container">
+                <p>1. Approximately what percentage of young Australians have been cyberbullied?</p>
+                
+                <div class="options" data-correct="53">
+                    <div class="option" data-value="21">21%</div>
+                    <div class="option" data-value="33">33%</div>
+                    <div class="option" data-value="53">53%</div>
+                    <div class="option" data-value="75">75%</div>
+                </div>
+                
+                <div class="feedback" id="feedback7"></div>
+            </div>
+            
+            <div class="question-container">
+                <p>2. Australian teens spend an average of how many hours online each week?</p>
+                
+                <div class="options" data-correct="14.4">
+                    <div class="option" data-value="7.2">7.2 hours</div>
+                    <div class="option" data-value="10.5">10.5 hours</div>
+                    <div class="option" data-value="14.4">14.4 hours</div>
+                    <div class="option" data-value="20.1">20.1 hours</div>
+                </div>
+                
+                <div class="feedback" id="feedback8"></div>
+            </div>
+            
+            <div class="question-container">
+                <p>3. LGBTQ+ children are how many times more likely to be bullied online compared to other children?</p>
+                
+                <div class="options" data-correct="three">
+                    <div class="option" data-value="two">Two times</div>
+                    <div class="option" data-value="three">Three times</div>
+                    <div class="option" data-value="four">Four times</div>
+                    <div class="option" data-value="five">Five times</div>
+                </div>
+                
+                <div class="feedback" id="feedback9"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="secondary" id="prevBtn4">Previous</button>
+                <button class="primary" id="nextBtn4" disabled>Next Module</button>
+            </div>
+        </div>
+        
+        <!-- Module 5: Legal Protection Operations -->
+        <div class="module" id="module5">
+            <h2>Training Module 5: Legal Protection Operations</h2>
+            
+            <h3>Mission Briefing</h3>
+            <p>As a Digital Defender, you need to know what constitutes illegal cyberbullying behavior under Australian law.</p>
+            
+            <h3>Field Assignment</h3>
+            <p><strong>Legal Analysis</strong>: Determine which cyberbullying behaviors are illegal in Australia.</p>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Digital Evidence File 1:</strong></p>
+                    <p>Someone posts private photos of another person without their permission.</p>
+                </div>
+                
+                <p><strong>Legal Status:</strong> This is:</p>
+                
+                <div class="options" data-correct="illegal">
+                    <div class="option" data-value="legal">LEGAL under Australian law</div>
+                    <div class="option" data-value="illegal">ILLEGAL under Australian law (posting nude or offensive images without permission)</div>
+                </div>
+                
+                <div class="feedback" id="feedback10"></div>
+            </div>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Digital Evidence File 2:</strong></p>
+                    <p>A person sends messages to someone saying they should harm themselves.</p>
+                </div>
+                
+                <p><strong>Legal Status:</strong> This is:</p>
+                
+                <div class="options" data-correct="illegal">
+                    <div class="option" data-value="legal">LEGAL under Australian law</div>
+                    <div class="option" data-value="illegal">ILLEGAL under Australian law (encouraging suicide)</div>
+                </div>
+                
+                <div class="feedback" id="feedback11"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="secondary" id="prevBtn5">Previous</button>
+                <button class="primary" id="nextBtn5" disabled>Next Module</button>
+            </div>
+        </div>
+        
+        <!-- Module 6: Support Network Deployment -->
+        <div class="module" id="module6">
+            <h2>Training Module 6: Support Network Deployment</h2>
+            
+            <h3>Mission Briefing</h3>
+            <p>When cyberbullying is detected, knowing how to activate support networks is crucial.</p>
+            
+            <h3>Field Assignment</h3>
+            <p><strong>Resource Matching Challenge</strong>: Connect cyberbullying victims with the appropriate support resource.</p>
+            
+            <div class="question-container">
+                <p>1. A teen who needs immediate emotional support should contact:</p>
+                
+                <div class="options" data-correct="kids">
+                    <div class="option" data-value="esafety">Office for the eSafety Commissioner</div>
+                    <div class="option" data-value="reportcyber">ReportCyber</div>
+                    <div class="option" data-value="kids">Kids Helpline</div>
+                    <div class="option" data-value="noway">Bullying. No Way!</div>
+                </div>
+                
+                <div class="feedback" id="feedback12"></div>
+            </div>
+            
+            <div class="question-container">
+                <p>2. To report offensive content for possible removal:</p>
+                
+                <div class="options" data-correct="esafety">
+                    <div class="option" data-value="esafety">Office for the eSafety Commissioner</div>
+                    <div class="option" data-value="reportcyber">ReportCyber</div>
+                    <div class="option" data-value="kids">Kids Helpline</div>
+                    <div class="option" data-value="noway">Bullying. No Way!</div>
+                </div>
+                
+                <div class="feedback" id="feedback13"></div>
+            </div>
+            
+            <div class="question-container">
+                <p>3. For reporting cybercrime without face-to-face interaction:</p>
+                
+                <div class="options" data-correct="reportcyber">
+                    <div class="option" data-value="esafety">Office for the eSafety Commissioner</div>
+                    <div class="option" data-value="reportcyber">ReportCyber</div>
+                    <div class="option" data-value="kids">Kids Helpline</div>
+                    <div class="option" data-value="noway">Bullying. No Way!</div>
+                </div>
+                
+                <div class="feedback" id="feedback14"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="secondary" id="prevBtn6">Previous</button>
+                <button class="primary" id="nextBtn6" disabled>Next Module</button>
+            </div>
+        </div>
+        
+        <!-- Module 7: Active Bystander Operations -->
+        <div class="module" id="module7">
+            <h2>Training Module 7: Active Bystander Operations</h2>
+            
+            <h3>Mission Briefing</h3>
+            <p>Your most important mission is learning how to transform bystanders into upstanders when witnessing cyberbullying.</p>
+            
+            <h3>Field Assignment</h3>
+            <p><strong>Intervention Strategy Simulation</strong>: Choose the most effective intervention for each scenario.</p>
+            
+            <div class="question-container">
+                <div class="scenario">
+                    <p><strong>Scenario 1:</strong></p>
+                    <p>You notice your friend is being harassed in a group chat, but they seem afraid to speak up.</p>
+                </div>
+                
+                <p><strong>Intervention Options:</strong></p>
+                
+                <div class="options" data-correct="B">
+                    <div class="option" data-value="A">A) Ignore it since it's not your problem</div>
+                    <div class="option" data-value="B">B) Offer to help them report it to a trusted adult</div>
+                    <div class="option" data-value="C">C) Join in to avoid becoming a target yourself</div>
+                </div>
+                
+                <div class="feedback" id="feedback15"></div>
+            </div>
+            
+            <div class="final-mission">
+                <h3>Final Assessment: Mission Deployment</h3>
+                <p>Congratulations on completing your training! Your final assessment is a real-world mission simulation.</p>
+                
+                <div class="scenario">
+                    <p>You discover that a classmate is being repeatedly sent hurtful messages on social media. They've become withdrawn and seem depressed. Using your Digital Defender training, outline your step-by-step action plan to help.</p>
+                </div>
+                
+                <p>Create a 5-step action plan addressing:</p>
+                <ol>
+                    <li>Identify the type of cyberbullying occurring</li>
+                    <li>Determine your role in the situation</li>
+                    <li>Select appropriate support resources</li>
+                    <li>Create an intervention strategy</li>
+                    <li>Determine if any laws are being broken</li>
+                </ol>
+                
+                <textarea id="finalMission" placeholder="Write your action plan here..."></textarea>
+            </div>
+            
+            <div class="buttons">
+                <button class="secondary" id="prevBtn7">Previous</button>
+                <button class="primary" id="completeBtn">Complete Training</button>
+            </div>
+        </div>
+        
+        <!-- Completion Certificate -->
+        <div class="completion-certificate" id="certificate">
+            <div class="certificate-content">
+                <h2>Certificate of Achievement</h2>
+                <div class="medal">🏅</div>
+                <h3>This certifies that</h3>
+                <h2 id="certificateName">Player Name</h2>
+                <p>has successfully completed training at the</p>
+                <h3>Cyberbullying Superhero Academy: Digital Defenders</h3>
+                <p>and is now qualified to identify, prevent, and combat cyberbullying.</p>
+                <p>Date: <span id="certificateDate"></span></p>
+                
+                <div class="badge-container">
+                    <div class="badge observer earned">Observer</div>
+                    <div class="badge analyst earned">Analyst</div>
+                    <div class="badge protector earned">Protector</div>
+                    <div class="badge hero earned">Hero</div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="primary" id="restartBtn">Start Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const modules = ['intro', 'module1', 'module2', 'module3', 'module4', 'module5', 'module6', 'module7', 'certificate'];
+            let currentModule = 0;
+            let progress = 0;
+            const totalModules = modules.length - 2; // Excluding intro and certificate
+            const progressBar = document.getElementById('progressBar');
+            let moduleCompleted = {
+                module1: false,
+                module2: false,
+                module3: false,
+                module4: false,
+                module5: false,
+                module6: false,
+                module7: false
+            };
+            
+            // Navigation buttons
+            const startButton = document.getElementById('startButton');
+            const nextBtn1 = document.getElementById('nextBtn1');
+            const prevBtn1 = document.getElementById('prevBtn1');
+            const nextBtn2 = document.getElementById('nextBtn2');
+            const prevBtn2 = document.getElementById('prevBtn2');
+            const nextBtn3 = document.getElementById('nextBtn3');
+            const prevBtn3 = document.getElementById('prevBtn3');
+            const nextBtn4 = document.getElementById('nextBtn4');
+            const prevBtn4 = document.getElementById('prevBtn4');
+            const nextBtn5 = document.getElementById('nextBtn5');
+            const prevBtn5 = document.getElementById('prevBtn5');
+            const nextBtn6 = document.getElementById('nextBtn6');const prevBtn6 = document.getElementById('prevBtn6');
+            const nextBtn7 = document.getElementById('nextBtn6');
+            const prevBtn7 = document.getElementById('prevBtn7');
+            const completeBtn = document.getElementById('completeBtn');
+            const restartBtn = document.getElementById('restartBtn');
+            
+            // Update progress bar
+            function updateProgress() {
+                let completedModules = 0;
+                for (const module in moduleCompleted) {
+                    if (moduleCompleted[module]) {
+                        completedModules++;
+                    }
+                }
+                
+                const percent = (completedModules / totalModules) * 100;
+                progressBar.style.width = percent + '%';
+                
+                // Update badges
+                if (moduleCompleted.module1 && moduleCompleted.module2) {
+                    document.getElementById('observerBadge').classList.add('earned');
+                }
+                
+                if (moduleCompleted.module3 && moduleCompleted.module4) {
+                    document.getElementById('analystBadge').classList.add('earned');
+                }
+                
+                if (moduleCompleted.module5 && moduleCompleted.module6) {
+                    document.getElementById('protectorBadge').classList.add('earned');
+                }
+                
+                if (moduleCompleted.module7) {
+                    document.getElementById('heroBadge').classList.add('earned');
+                }
+            }
+            
+            // Navigate to a specific module
+            function navigateTo(moduleIndex) {
+                // Hide current module
+                document.getElementById(modules[currentModule]).classList.remove('active');
+                
+                // Show new module
+                currentModule = moduleIndex;
+                document.getElementById(modules[currentModule]).classList.add('active');
+                
+                // Update progress
+                updateProgress();
+            }
+            
+            // Event listeners for options
+            const allOptions = document.querySelectorAll('.option');
+            allOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from sibling options
+                    const parentOptions = this.parentElement;
+                    const siblings = parentOptions.querySelectorAll('.option');
+                    siblings.forEach(sib => sib.classList.remove('selected', 'correct', 'incorrect'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Check if answer is correct
+                    const correctAnswer = parentOptions.getAttribute('data-correct');
+                    const selectedAnswer = this.getAttribute('data-value');
+                    
+                    const feedbackId = parentOptions.nextElementSibling.id;
+                    const feedback = document.getElementById(feedbackId);
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        this.classList.add('correct');
+                        feedback.classList.add('success');
+                        feedback.classList.remove('error');
+                        feedback.style.display = 'block';
+                        feedback.textContent = 'Correct! Great job, Digital Defender!';
+                    } else {
+                        this.classList.add('incorrect');
+                        feedback.classList.add('error');
+                        feedback.classList.remove('success');
+                        feedback.style.display = 'block';
+                        feedback.textContent = 'Not quite. Try again or review the mission briefing for clues.';
+                    }
+                    
+                    // Check if all questions in the module are answered correctly
+                    checkModuleCompletion();
+                });
+            });
+            
+            // Check if a module is completed
+            function checkModuleCompletion() {
+                const currentModuleElem = document.getElementById(modules[currentModule]);
+                const questions = currentModuleElem.querySelectorAll('.options');
+                let allCorrect = true;
+                
+                questions.forEach(q => {
+                    const correctAnswer = q.getAttribute('data-correct');
+                    const selectedOption = q.querySelector('.option.selected');
+                    
+                    if (!selectedOption || selectedOption.getAttribute('data-value') !== correctAnswer) {
+                        allCorrect = false;
+                    }
+                });
+                
+                // Enable next button if all questions are answered correctly
+                const nextButton = document.getElementById('nextBtn' + currentModule.toString());
+                if (nextButton) {
+                    nextButton.disabled = !allCorrect;
+                }
+                
+                // For module 7, we need to check the final mission textarea as well
+                if (currentModule === 7) {
+                    const finalMission = document.getElementById('finalMission');
+                    if (finalMission.value.length < 100) {
+                        allCorrect = false;
+                        completeBtn.disabled = true;
+                    } else {
+                        completeBtn.disabled = false;
+                    }
+                }
+                
+                // Mark module as completed
+                if (allCorrect) {
+                    moduleCompleted['module' + currentModule] = true;
+                    updateProgress();
+                }
+            }
+            
+            // Final mission textarea event
+            const finalMission = document.getElementById('finalMission');
+            if (finalMission) {
+                finalMission.addEventListener('input', function() {
+                    if (this.value.length >= 100) {
+                        completeBtn.disabled = false;
+                    } else {
+                        completeBtn.disabled = true;
+                    }
+                });
+            }
+            
+            // Event listeners for navigation buttons
+            startButton.addEventListener('click', function() {
+                const playerName = document.getElementById('playerName').value;
+                if (playerName.trim() === '') {
+                    alert('Please enter your name to begin.');
+                    return;
+                }
+                
+                navigateTo(1); // Go to module 1
+            });
+            
+            nextBtn1.addEventListener('click', function() {
+                moduleCompleted.module1 = true;
+                navigateTo(2);
+            });
+            
+            prevBtn1.addEventListener('click', function() {
+                navigateTo(0);
+            });
+            
+            nextBtn2.addEventListener('click', function() {
+                moduleCompleted.module2 = true;
+                navigateTo(3);
+            });
+            
+            prevBtn2.addEventListener('click', function() {
+                navigateTo(1);
+            });
+            
+            nextBtn3.addEventListener('click', function() {
+                moduleCompleted.module3 = true;
+                navigateTo(4);
+            });
+            
+            prevBtn3.addEventListener('click', function() {
+                navigateTo(2);
+            });
+            
+            nextBtn4.addEventListener('click', function() {
+                moduleCompleted.module4 = true;
+                navigateTo(5);
+            });
+            
+            prevBtn4.addEventListener('click', function() {
+                navigateTo(3);
+            });
+            
+            nextBtn5.addEventListener('click', function() {
+                moduleCompleted.module5 = true;
+                navigateTo(6);
+            });
+            
+            prevBtn5.addEventListener('click', function() {
+                navigateTo(4);
+            });
+            
+            nextBtn6.addEventListener('click', function() {
+                moduleCompleted.module6 = true;
+                navigateTo(7);
+            });
+            
+            prevBtn6.addEventListener('click', function() {
+                navigateTo(5);
+            });
+            
+            prevBtn7.addEventListener('click', function() {
+                navigateTo(6);
+            });
+            
+            completeBtn.addEventListener('click', function() {
+                moduleCompleted.module7 = true;
+                updateProgress();
+                
+                // Prepare certificate
+                const playerName = document.getElementById('playerName').value;
+                document.getElementById('certificateName').textContent = playerName;
+                
+                const today = new Date();
+                const dateStr = today.toLocaleDateString();
+                document.getElementById('certificateDate').textContent = dateStr;
+                
+                // Navigate to certificate
+                navigateTo(8);
+            });
+            
+            restartBtn.addEventListener('click', function() {
+                // Reset game state
+                currentModule = 0;
+                
+                // Reset progress
+                for (const module in moduleCompleted) {
+                    moduleCompleted[module] = false;
+                }
+                
+                // Clear all selections and feedback
+                const allOptions = document.querySelectorAll('.option');
+                allOptions.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                const allFeedback = document.querySelectorAll('.feedback');
+                allFeedback.forEach(feedback => {
+                    feedback.style.display = 'none';
+                    feedback.textContent = '';
+                });
+                
+                // Clear final mission textarea
+                if (finalMission) {
+                    finalMission.value = '';
+                }
+                
+                // Reset badges
+                const badges = document.querySelectorAll('.badge');
+                badges.forEach(badge => {
+                    badge.classList.remove('earned');
+                });
+                
+                // Reset next buttons
+                const nextButtons = document.querySelectorAll('button[id^="nextBtn"]');
+                nextButtons.forEach(button => {
+                    button.disabled = true;
+                });
+                
+                completeBtn.disabled = true;
+                
+                // Update progress bar
+                progressBar.style.width = '0%';
+                
+                // Navigate to start
+                navigateTo(0);
+            });
+            
+            // Initialize
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
